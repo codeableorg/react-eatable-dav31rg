@@ -2,6 +2,7 @@ import styled from '@emotion/styled';
 import React, { useContext } from 'react'
 import { DishesContext } from '../context/DishesContext'
 import DishCard from '../components/DishCard';
+import Footer from '../components/Footer';
 
 const FoodListWrapper = styled.ul`
   display: grid;
@@ -10,7 +11,6 @@ const FoodListWrapper = styled.ul`
   justify-content: center;
   max-width: 20.7em;
 `;
-
 const StyledTitle = styled.h1`
   font-style: normal;
   font-weight: 600;
@@ -30,6 +30,7 @@ const DishesList = () => {
           <DishCard key={product.id} product={product}/>
         ))}
       </FoodListWrapper>
+      <Footer title="Create Product" to="/create" />   
     </>
   )
 }
