@@ -4,8 +4,8 @@ import { getAllProducts } from "../services/product-service";
 export const DishesContext = createContext();
 export function DishesProvider({children}) {
   const [dishesList, setDishesList] = useState([]);
-  
-  
+  const [dish, setDish] = useState({});
+
   useEffect(() => {
     getAllProducts()
       .then((response) => {
@@ -20,6 +20,8 @@ export function DishesProvider({children}) {
   return (
     <DishesContext.Provider 
       value={{
+        dish,
+        setDish,
         dishesList,
       }}
     >
