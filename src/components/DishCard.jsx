@@ -1,4 +1,7 @@
 import styled from '@emotion/styled';
+import { useContext } from 'react';
+import { Link } from 'react-router-dom';
+import { DishesContext } from '../context/DishesContext';
 
 const DishCardContainer = styled.div`
   display: flex;
@@ -52,36 +55,42 @@ const StyledLinkContainer = styled.div`
   position: relative;
   top: -0.8em;
 `;
-
-const StyledAnchor = styled.a`
+const StyledLink = styled.img`
   margin: 0 1.9em;
 `;
 
 const DishCard = ( {product} ) => {
+  const { setDish } = useContext(DishesContext);
+  
   const title = product
     .name
     .split(" ")
     .map((word) => word.substring(0,1).toUpperCase() + word.substring(1))
     .join(" ");
 
+    function handleCLick() {
+      setDish(product)
+    }
 
   return (
     <DishCardContainer>
-      <StyledImg src={product.picture_url} alt="Image of dish" />
+      <Link to="/dish" onClick={handleCLick}>
+        <StyledImg src={product.picture_url} alt="Image of dish" />
+      </Link>
       <InfoContainer>
         <StyledName>{title}</StyledName>
         <StyledPrice>${product.price / 100}</StyledPrice>
         <StyledLinkContainer>
-          <StyledAnchor>
-            <img src="src/assets/editIco.svg" alt="" />
-          </StyledAnchor>
-          <StyledAnchor>
-            <img src="src/assets/deleteIco.svg" alt="" />
-          </StyledAnchor>
+          <Link to="/edit">
+            <StyledLink src="src/assets/editIco.svg" alt="Link edit dish" />
+          </Link>
+          <Link to="/create">
+            <StyledLink src="src/assets/deleteIco.svg" alt="Link delete dish" />
+          </Link>
         </StyledLinkContainer>
       </InfoContainer>
     </DishCardContainer>
-  )
+  );
 }
 
 export default DishCard
