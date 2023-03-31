@@ -4,7 +4,7 @@ export default async function apiFetch(
   endpoint,
   { method, headers, body } = {}
 ) {
-
+  
   if (body) {
     headers = {
       "Content-Type": "application/json",
