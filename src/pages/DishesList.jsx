@@ -17,6 +17,7 @@ const StyledTitle = styled.h1`
   font-size: 1.38em;
   line-height: 1.8em;
   text-align: center;
+  margin-top: 3em;
 `;
 
 const DishesList = () => {
