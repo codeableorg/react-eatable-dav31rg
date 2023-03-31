@@ -15,7 +15,7 @@ export function DishesProvider({children}) {
         console.log(error);
       });
   
-  }, [])
+  },[]);
 
   return (
     <DishesContext.Provider 

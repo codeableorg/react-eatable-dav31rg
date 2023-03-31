@@ -81,7 +81,7 @@ const DishCard = ( {product} ) => {
         <StyledName>{title}</StyledName>
         <StyledPrice>${product.price / 100}</StyledPrice>
         <StyledLinkContainer>
-          <Link to="/edit">
+          <Link to="/edit" onClick={handleCLick} > 
             <StyledLink src="src/assets/editIco.svg" alt="Link edit dish" />
           </Link>
           <Link to="/create">

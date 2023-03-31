@@ -15,7 +15,7 @@ const CreateDish = () => {
   return (
     <>
       <StyledTitle>Create Product</StyledTitle>
-      <DishForm buttonName="Create"/>
+      <DishForm buttonName="Create" />
     </>
   )
 }
