@@ -2,6 +2,7 @@ import React from 'react';
 import styled from '@emotion/styled';
 import { ErrorMessage, Field, Form, Formik } from 'formik';
 import { useNavigate } from 'react-router-dom';
+import { createProduct, editProduct } from '../services/product-service';
 
 const StyledLable = styled.label`
   display: block;
@@ -34,106 +35,121 @@ const fieldStyle = {
   borderBottom: "1px solid #333333",
   background: "#F6F6F9",
 };
+const formStyle = {
+  display: "flex",
+  flexDirection: "column",
+  alignItems: "center",
+};
 
-const DishForm = ({ buttonName }) => {
+const DishForm = ({ buttonName, props = {} }) => {
   const navigate = useNavigate();
   return (
     <>
       <Formik
         initialValues={{
-          dishName: '',
-          dishPrice: '',
-          dishDescription: '',
-          dishCategory: '',
-          dishUrl: '',
+          id: props.id ? props.id : "",
+          name: props.name ? props.name : "",
+          price: props.price ? props.price : "",
+          description: props.description ? props.description : "",
+          category: props.category ? props.category : "",
+          picture_url: props.picture_url ? props.picture_url : "",
         }}
         validate={(value) => {
           let faults = {};
           
-          if (!value.dishName) {
-            faults.dishName = "Title is mandatory";
+          if (!value.name) {
+            faults.name = "Title is mandatory";
           }
-          if (!value.dishPrice) {
-            faults.dishPrice = "Price is mandatory";
+          if (!value.price) {
+            faults.price = "Price is mandatory";
           }
-          if (!value.dishDescription) {
-            faults.dishDescription = "Description is mandatory";
+          if (!value.description) {
+            faults.description = "Description is mandatory";
           }
-          if (!value.dishCategory) {
-            faults.dishCategory = "Category is mandatory";
+          if (!value.category) {
+            faults.category = "Category is mandatory";
           }
-          if (!value.dishUrl) {
-            faults.dishUrl = "Picture is mandatory";
+          if (!value.picture_url) {
+            faults.picture_url = "Picture is mandatory";
           }
           
           return faults;
         }}
-        onSubmit={(values, {resetForm}) => {
-          console.log(values);
-          resetForm();
-          navigate('/');
+         onSubmit={(values, {resetForm}) => {
+          if (buttonName === "Create") {
+            createProduct(values);
+            resetForm();
+            navigate('/');
+          }
+          if (buttonName === "Save") {
+            console.log(values);
+            editProduct(props.id, values);
+            resetForm();
+            navigate('/');
+          }
+          
         }}
       >
         {({ errors, isValid }) => (
-          <Form>
+          <Form style={formStyle}>
             <div>
-              <StyledLable htmlFor="name">Name</StyledLable>
+              <StyledLable htmlFor="dishName">Name</StyledLable>
               <Field 
                 type="text"
-                id="name"
-                name="dishName"
+                id="dishName"
+                name="name"
                 style={fieldStyle}
               />
-              <ErrorMessage name='dishName' component={() => (
-                  <p>{errors.dishName}</p>
+              <ErrorMessage name='name' component={() => (
+                  <p>{errors.name}</p>
                 )}/>
             </div>
             <div>
-              <StyledLable htmlFor="price">Price</StyledLable>
+              <StyledLable htmlFor="dishPrice">Price</StyledLable>
               <Field 
                 type="text"
-                id="price"
-                name="dishPrice"
+                id="dishPrice"
+                name="price"
                 style={fieldStyle}
               />
-              <ErrorMessage name='dishPrice' component={() => (
-                  <p>{errors.dishPrice}</p>
+              <ErrorMessage name='price' component={() => (
+                  <p>{errors.price}</p>
                 )}/>
             </div>
             <div>
-              <StyledLable htmlFor="description">Description</StyledLable>
+              <StyledLable htmlFor="dishDescription">Description</StyledLable>
               <Field 
-                id="description"
-                name="dishDescription"
+                id="dishDescription"
+                name="description"
                 as="textarea"
                 style={fieldStyle}
               />
-              <ErrorMessage name='dishDescription' component={() => (
-                  <p>{errors.dishDescription}</p>
+              <ErrorMessage name='description' component={() => (
+                  <p>{errors.description}</p>
                 )}/>
             </div>
             <div>
-              <StyledLable htmlFor="category">Category</StyledLable>
+              <StyledLable htmlFor="dishCategory">Category</StyledLable>
               <Field 
                 type="text"
-                id="category"
-                name="dishCategory"
+                id="dishCategory"
+                name="category"
                 style={fieldStyle}
               />
-              <ErrorMessage name='dishCategory' component={() => (
-                  <p>{errors.dishCategory}</p>
+              <ErrorMessage name='category' component={() => (
+                  <p>{errors.category}</p>
                 )}/>
             </div>
             <div>
-              <StyledLable htmlFor="url">Picture URL</StyledLable>
+              <StyledLable htmlFor="dishUrl">Picture URL</StyledLable>
               <Field 
                 type="text"
-                id="url"
-                name="dishUrl"
+                id="dishUrl"
+                name="picture_url"
                 style={fieldStyle}
               />
-              <ErrorMessage name='dishUrl' component={() => (
-                  <p>{errors.dishUrl}</p>
+              <ErrorMessage name='picture_url' component={() => (
+                  <p>{errors.picture_url}</p>
                 )}/>
             </div>
             <StyledButton disabled={!isValid} type="submit">{buttonName}</StyledButton>
