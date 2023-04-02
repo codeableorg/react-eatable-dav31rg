@@ -40,6 +40,10 @@ const StyledName = styled.p`
   text-align: center;
   margin-block-start: 0;
   margin-block-end: 0;
+  width: 130px;
+  height: 28px;
+  overflow: hidden;
+  text-overflow: ellipsis;
 `;
 const StyledPrice = styled.p`
   position: relative;
