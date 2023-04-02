@@ -18,7 +18,6 @@ export async function createProduct(newDish) {
 }
 
 export async function editProduct(id, updatedDish) {
-  console.log(id);
   const product = await apiFetch(`products/${id}`, {
     method: "PUT",
     body: updatedDish,
@@ -26,5 +25,11 @@ export async function editProduct(id, updatedDish) {
   return product;
 }
 
+export async function deleteProduct(id) {
+  const product = await apiFetch(`products/${id}`, {
+    method: "DELETE",
+  });
+  return product;
+}
 
 
