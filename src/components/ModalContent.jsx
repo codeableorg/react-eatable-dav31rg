@@ -61,7 +61,6 @@ export default function ModalContent({ onClose }) {
   const { dish } = useContext(DishesContext);
 
   function handleDelete() {
-    console.log("id para borrar:",dish);
     deleteProduct(dish.id);
     onClose();
   }
