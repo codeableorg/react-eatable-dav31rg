@@ -14,7 +14,7 @@ const StyledTitle = styled.p`
 
 const EditDish = () => {
   const { dish } = useContext(DishesContext);
-  console.log(dish);
+  
   return (
     <>
       <StyledTitle>Edit Product</StyledTitle>

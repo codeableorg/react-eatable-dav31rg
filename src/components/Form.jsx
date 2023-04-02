@@ -82,7 +82,6 @@ const DishForm = ({ buttonName, props = {} }) => {
             navigate('/');
           }
           if (buttonName === "Save") {
-            console.log(values);
             editProduct(props.id, values);
             resetForm();
             navigate('/');
