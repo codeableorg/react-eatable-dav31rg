@@ -1,7 +1,9 @@
 import styled from '@emotion/styled';
-import { useContext } from 'react';
+import { useContext, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { DishesContext } from '../context/DishesContext';
+import { createPortal } from 'react-dom';
+import ModalContent from './ModalContent';
 
 const DishCardContainer = styled.div`
   display: flex;
@@ -58,10 +60,16 @@ const StyledLinkContainer = styled.div`
 const StyledLink = styled.img`
   margin: 0 1.9em;
 `;
+const StyledButton = styled.button`
+  border: none;
+  background-color: white;
+`;
+
 
 const DishCard = ( {product} ) => {
   const { setDish } = useContext(DishesContext);
-  
+  const [showModal, setShowModal] = useState(false)
+
   const title = product
     .name
     .split(" ")
@@ -84,9 +92,17 @@ const DishCard = ( {product} ) => {
           <Link to="/edit" onClick={handleCLick} > 
             <StyledLink src="src/assets/editIco.svg" alt="Link edit dish" />
           </Link>
-          <Link to="/create">
+          <StyledButton onClick={() => {
+            setShowModal(true);
+            handleCLick();
+            }} 
+          >
             <StyledLink src="src/assets/deleteIco.svg" alt="Link delete dish" />
-          </Link>
+          </StyledButton>
+          {showModal && createPortal(
+            <ModalContent onClose={() => setShowModal(false)}/>,
+            document.body
+          )}
         </StyledLinkContainer>
       </InfoContainer>
     </DishCardContainer>
